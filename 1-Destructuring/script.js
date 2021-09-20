@@ -1,4 +1,4 @@
-const array = ["A", "B", "C", "D"]
+const array = ["A", "B", "C", "D", ["E", "F"]]
 const person = {
   name: "Kyle",
   age: 25,
@@ -6,6 +6,7 @@ const person = {
   address: {
     street: "123 Main St",
     ciry: "Somewhere",
+    zipcode: '55555'
   }
 }
 
@@ -31,8 +32,49 @@ const person = {
 
 // const { address } = person
 // const { street } = address
-const {
-  address: { street, ciry }
-} = person
-console.log(street);
-console.log(ciry);
+// const {
+//   address: { street, ciry, zipcode = '1243'}
+// } = person
+// console.log(street);
+// console.log(ciry);
+// console.log(zipcode);
+
+// const [first, second, third, fourth, [fifth, sixth]] = array
+// console.log(fifth);
+// console.log(sixth);
+
+// const {
+//   age,
+//   name,
+//   fovoriteFood,
+//   address
+// } = person;
+
+// function addAndMultiply(a, b) {
+//   return { sum: a + b, product: a * b }
+// }
+
+// const { sum, product } = addAndMultiply(2, 3)
+// console.log(sum);
+// console.log(product);
+
+// function nameToFirstAndLast(fullName) {
+//   return fullName.split(" ")
+// }
+
+// const [firstName, lastName] = nameToFirstAndLast("Kyle Cook")
+// console.log(firstName);
+// console.log(lastName);
+
+function nameToFirstAndLast(fullName) {
+  const [firstName, lastName] = fullName.split(" ")
+  return {
+    firstName: firstName,
+    lastName: lastName
+  }
+}
+
+const { firstName, lastName } = nameToFirstAndLast("Kyle Cook")
+console.log(firstName);
+console.log(lastName);
+
