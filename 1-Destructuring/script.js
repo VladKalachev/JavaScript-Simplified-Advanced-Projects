@@ -66,15 +66,28 @@ const person = {
 // console.log(firstName);
 // console.log(lastName);
 
-function nameToFirstAndLast(fullName) {
-  const [firstName, lastName] = fullName.split(" ")
-  return {
-    firstName: firstName,
-    lastName: lastName
-  }
+// function nameToFirstAndLast(fullName) {
+//   const [firstName, lastName] = fullName.split(" ")
+//   return {
+//     firstName: firstName,
+//     lastName: lastName
+//   }
+// }
+
+// const { firstName, lastName } = nameToFirstAndLast("Kyle Cook")
+// console.log(firstName);
+// console.log(lastName);
+
+// function addAndMultiply(options) {
+//   const a = options.a
+//   const b = options.b
+//   return [a + b, a * b]
+// }
+
+function addAndMultiply({ a, b }) {
+  return [a + b, a * b]
 }
 
-const { firstName, lastName } = nameToFirstAndLast("Kyle Cook")
-console.log(firstName);
-console.log(lastName);
+const [sum, product] = addAndMultiply({ a: 2, b: 3})
+console.log(sum, product);
 
