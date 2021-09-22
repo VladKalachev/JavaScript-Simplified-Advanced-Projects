@@ -1,13 +1,14 @@
+const propertyName = "name"
+const index = 1
 const firstName = "Kely"
 const age = 25
-const sayHi = function () {
-  console.log("Hi");
-}
 
 const person = {
-  firstName: firstName,
-  age: age,
-  sayHi: sayHi,
+  [propertyName]: firstName,
+  [`age${index}`]: age,
+  sayHi() {
+    console.log("Hi");
+  },
 }
 
 console.log(person);
