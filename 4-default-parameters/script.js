@@ -1,5 +1,9 @@
-function greet(firstName, lastName, salutation) {
-  console.log(`${salutation} ${firstName} ${lastName}`);
+function greet(
+  firstName = "John", 
+  lastName,
+  { salutation = "Hi", suffix = "Mr" } = {}
+) {
+  console.log(`${salutation} ${suffix} ${firstName} ${lastName}`);
 }
 
-greet("Kyle", "Cook", "Hi")
+greet("Kyle", "Cook")
