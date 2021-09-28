@@ -1,26 +1,46 @@
-// const uniqueList = [1, 2, 3, 4, 5]
-// const newNumber = 4
-// const set = new Set([1, 2, 3, 4]);
+// import { person } from './module.js'
 
-// set.add(5)
-// set.add(4)
+// const sym1 = Symbol("Name")
 
-// set.delete(1)
-// console.log(set.has(2));
-// set.clear()
-// console.log(set);
-// set.forEach(value => {
-//   console.log(value);
-// })
+// const sym2 = Symbol("Name")
+// console.log(sym1);
+// console.log(sym2);
+// console.log(sym1 === sym2)
 
-// if(!uniqueList.includes(newNumber)) {
-//   uniqueList.add(newNumber)
+// const person = {
+//   age: 25,
+//   [sym1]: "Kyle"
 // }
 
-// console.log(uniqueList);
+// console.log(person);
 
-function removeDups(array) {
-  return [...new Set(array)]
+// Object.entries(person).forEach(([key, value]) => {
+//   console.log(key, value);
+// })
+
+// console.log(JSON.stringify(person));
+
+// console.log(Object.getOwnPropertySymbols(person))
+
+// const sym = Symbol.for("name")
+// console.log(person[sym])
+
+// const LOG_LEVEL = {
+//   DEBUG_LEVEL: 'debug',
+//   INFO: 'info',
+//   WARNING: 'warning', 
+//   ERROR: 'error'
+// }
+
+const LOG_LEVEL = {
+  DEBUG_LEVEL: Symbol('debug'),
+  INFO: Symbol('info'),
+  WARNING: Symbol('warning'), 
+  ERROR: Symbol('error'),
 }
 
-console.log(removeDups([1, 2, 3, 3, 4]));
+const logLevel = LOG_LEVEL.DEBUG_LEVEL;
+
+if (logLevel == LOG_LEVEL.DEBUG_LEVEL) {
+  console.log(logLevel);
+}
