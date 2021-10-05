@@ -1,4 +1,4 @@
-import { createBoard, markTile, TILE_STATUSES, revealTile } from './minesweeper.js'
+import { createBoard, markTile, TILE_STATUSES, revealTile, checkWin, checkLose } from './minesweeper.js'
 
 const BOARD_SIZE = 10
 const NUMBER_OF_MINES = 10
@@ -6,12 +6,14 @@ const NUMBER_OF_MINES = 10
 const board = createBoard(BOARD_SIZE, NUMBER_OF_MINES)
 const boardElement = document.querySelector(".board")
 const minesLeftText = document.querySelector("[data-mine-couter]")
+const messageText = document.querySelector(".subtext")
 
 board.forEach(row => {
   row.forEach(tile => {
     boardElement.append(tile.element)
     tile.element.addEventListener('click', () => {
       revealTile(board, tile)
+      chackGameEnd()
     })
     tile.element.addEventListener('contextmenu', e => {
       e.preventDefault()
@@ -31,3 +33,29 @@ function listMinesLeft() {
 
   minesLeftText.textContent = NUMBER_OF_MINES - markedTilesCount
 }
+
+function chackGameEnd() {
+  const win = checkWin(board)
+  const lose = checkLose(board)
+
+  if (win || lose) {
+    boardElement.addEventListener('click', stopProps, { capture: true })
+    boardElement.addEventListener('contextmenu', stopProps, { capture: true })
+  }
+
+  if (win) {
+    messageText.textContent = 'You Win'
+  }
+  if (lose) {
+    messageText.textContent = 'You Lose'
+    board.forEach(row => {
+      row.forEach(tile => {
+        if (tile.mine) revealTile(board, tile)
+      })
+    })
+  }
+}
+
+function stopProps(e) {
+  e.stopImmediatePropagation()
+} 
