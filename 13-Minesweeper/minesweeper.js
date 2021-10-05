@@ -49,7 +49,7 @@ export function markTile(tile) {
   }
 }
 
-export function revealTile(tile) {
+export function revealTile(board, tile) {
   if (tile.status !== TILE_STATUSES.HIDDEN) {
     return
   }
@@ -60,6 +60,7 @@ export function revealTile(tile) {
   }
 
   tile.status = TILE_STATUSES.NUMBER
+  const adjacentTiles = nearbyTiles(board, tile)
 }
 
 function getMinePositions(boradSize, numberOfMines) {
@@ -84,4 +85,17 @@ function positionMatch(a, b) {
 
 function randomNumber(size) {
   return Math.floor(Math.random() * size)
+}
+
+function nearbyTiles(borad, { x, y }) {
+  const  tiles = []
+
+  for (let xOffset = -1; xOffset <= 1; xOffset++) {
+    for (let yOffset = -1; yOffset <= 1; yOffset++) {
+      const tile = borad[x + xOffset]?.[y + yOffset]
+      if(tile) tiles.push(tile)
+    }
+  }
+
+  return tiles 
 }
