@@ -61,6 +61,12 @@ export function revealTile(board, tile) {
 
   tile.status = TILE_STATUSES.NUMBER
   const adjacentTiles = nearbyTiles(board, tile)
+  const mines = adjacentTiles.filter(t => t.mine)
+  if (mines.length === 0) {
+    adjacentTiles.forEach(revealTile.bind(null, board))
+  } else {
+    tile.element.textContent = mines.length
+  }
 }
 
 function getMinePositions(boradSize, numberOfMines) {
