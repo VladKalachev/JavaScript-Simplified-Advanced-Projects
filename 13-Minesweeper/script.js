@@ -50,6 +50,7 @@ function chackGameEnd() {
     messageText.textContent = 'You Lose'
     board.forEach(row => {
       row.forEach(tile => {
+        if (tile.status === TILE_STATUSES.MARKED) markTile(tile)
         if (tile.mine) revealTile(board, tile)
       })
     })
