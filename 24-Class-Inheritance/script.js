@@ -33,8 +33,8 @@ class Cat extends Animal {
 
 const dog = new Dog('Goga', "Vova");
 const cat = new Cat("Cat");
-console.log(cat.speak());
-dog.speak();
+// console.log(cat.speak());
+// dog.speak();
 
 class Person {
   constructor(name) {
@@ -48,7 +48,14 @@ class Janitor extends Person {
     this.numberOfMops = numberOfMops;
   }
 
+  #internalOnlyVariable = true
+  
+  #cleaningProductCount = 10
+
   clean() {
+    if(this.#internalOnlyVariable === true) {
+      console.log('Hi')
+    }
     console.log(`Cleaned with ${this.numberOfMops} mops`);
   }
 }
