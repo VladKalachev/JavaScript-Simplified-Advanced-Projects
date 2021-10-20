@@ -52,13 +52,29 @@ class Janitor extends Person {
   
   #cleaningProductCount = 10
 
-  clean() {
-    if(this.#internalOnlyVariable === true) {
-      console.log('Hi')
+  set cleaningProductCount(value) {
+    if(value > 5) {
+      this.#cleaningProductCount = value
     }
-    console.log(`Cleaned with ${this.numberOfMops} mops`);
+  }
+
+  clean() {
+    this.#helperFunction()
+    // if(this.#internalOnlyVariable === true) {
+    //   console.log('Hi')
+    // }
+    console.log(`Cleaned with ${this.numberOfMops} mops and ${this.#cleaningProductCount} cleaning prodicts`);
+  }
+
+  #helperFunction () {
+    console.log('help')
   }
 }
 
-const janitor = new Janitor("Jerry", 5)
+class SuperJanitor extends Janitor {
+  #cleaningProductCount = 100
+}
+
+const janitor = new SuperJanitor("Jerry", 5)
+// janitor.cleaningProductCount = 7
 console.log(janitor.clean());
