@@ -1,38 +1,52 @@
-const fs = require('fs');
+const FileSystem = require("./FileSystem")
 
 module.exports = class Account {
   constructor(name) {
-    this.name = name;
+    this.#name = name
   }
 
   #name
   #balance
 
   get name() {
-    return this.#name;
+    return this.#name
   }
 
   get balance() {
-    return this.#balance;
+    return this.#balance
   }
 
   get filePath() {
     return `accounts/${this.name}.txt`
   }
 
-  #load() {
-    return new Promise((resolve, reject) => {
-      fs.readFile(this.filePath, (err, data) => {
-        if(err) console.log(err)
-        this.#balance = parseFloat(data);
-        resolve()
-      })
-    })
+  async #load() {
+    this.#balance = parseFloat(await FileSystem.read(this.filePath))
   }
 
-  async static find(accountName) {
-    const account = new Account(accountName);
-
-    await account.#load()
+  async withdraw(amount) {
+    if (this.balance < amount) throw new Error()
+    await FileSystem.write(this.filePath, this.#balance - amount)
+    this.#balance = this.#balance - amount
   }
-};
+
+  async deposit(amount) {
+    await FileSystem.write(this.filePath, this.#balance + amount)
+    this.#balance = this.#balance + amount
+  }
+
+  static async find(accountName) {
+    const account = new Account(accountName)
+
+    try {
+      await account.#load()
+      return account
+    } catch (e) {
+      return
+    }
+  }
+
+  static async create(accountName) {
+  
+  }
+}

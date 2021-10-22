@@ -8,11 +8,16 @@
 
 // Account
 const Account = require('./Account');
-const CommentLine = require('./CommandLine');
+const CommandLine = require('./CommandLine');
 
 async function main() {
-  const accountName = await CommentLine.ask("Which account would you like to access?");
-  const account = Account.find(accountName)
+  const accountName = await CommandLine.ask("Which account would you like to access?");
+  const account = await Account.find(accountName);
+  if(account) {
+    console.log('Found account');
+  } else {
+    console.log('Cannot find');
+  }
 }
 
 main();
