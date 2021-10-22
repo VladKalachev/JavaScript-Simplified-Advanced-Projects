@@ -11,9 +11,8 @@ const Account = require('./Account');
 const CommentLine = require('./CommandLine');
 
 async function main() {
-  CommentLine.ask("Which account would you like to access?").then(response => {
-    CommentLine.print(response)
-  })
+  const accountName = await CommentLine.ask("Which account would you like to access?");
+  const account = Account.find(accountName)
 }
 
 main();
