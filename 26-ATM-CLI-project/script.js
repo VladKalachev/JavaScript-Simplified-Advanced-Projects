@@ -8,13 +8,12 @@
 
 // Account
 const Account = require('./Account');
-const readline = require('readline');
+const CommentLine = require('./CommandLine');
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-})
+async function main() {
+  CommentLine.ask("Which account would you like to access?").then(response => {
+    CommentLine.print(response)
+  })
+}
 
-rl.question("Which account would you like to access?", answer => {
-    console.log(answer);
-})
+main();
