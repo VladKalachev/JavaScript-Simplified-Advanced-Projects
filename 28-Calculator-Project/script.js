@@ -9,7 +9,7 @@ import Calculator from './Calculator.js'
 // 6. Click equals
 
 const  primaryOperandDisplay = document.querySelector("[data-primary-operand]")
-const  secondaryOperandDisplay = document.querySelector("[data-secindary-operand]")
+const  secondaryOperandDisplay = document.querySelector("[data-secondary-operand]")
 const  operandDisplay = document.querySelector("[data-operation]")
 
 const calculator = new Calculator(
