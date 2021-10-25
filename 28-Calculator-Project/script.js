@@ -8,7 +8,15 @@ import Calculator from './Calculator.js'
 // 5. Click the period button
 // 6. Click equals
 
-const calculator = new Calculator();
+const  primaryOperandDisplay = document.querySelector("[data-primary-operand]")
+const  secondaryOperandDisplay = document.querySelector("[data-secindary-operand]")
+const  operandDisplay = document.querySelector("[data-operation]")
+
+const calculator = new Calculator(
+  primaryOperandDisplay, 
+  secondaryOperandDisplay, 
+  operandDisplay
+);
 
 document.addEventListener("click", e => {
   if(e.target.matches("[data-all-clear]")) {
