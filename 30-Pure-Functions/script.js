@@ -1,11 +1,17 @@
 const person = {
   name: 'Vlad',
-  fruends: ['Peta', 'Masha']
+  friends: ['Peta', 'Masha']
 }
 
+// Pure function
 function addFriend(person, friendName) {
-  return {...person, fruends: [...person.fruends, friendName]}
+  return {...person, friends: addElement(person.friends, friendName)}
   //person.fruends.push(friendName)
+}
+
+// Pure function
+function addElement(a, element) {
+  return [...a, element];
 }
 
 console.log(addFriend(person, "Joey"))
