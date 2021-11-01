@@ -10,17 +10,20 @@ import {
 const BOARD_SIZE = 10
 const NUMBER_OF_MINES = 10
 
-const board = createBoard(BOARD_SIZE, NUMBER_OF_MINES)
+let board = createBoard(BOARD_SIZE, NUMBER_OF_MINES)
 const boardElement = document.querySelector(".board")
 const minesLeftText = document.querySelector("[data-mine-couter]")
 const messageText = document.querySelector(".subtext")
 
 function render() {
   boardElement.innerHTML = ''
+  chackGameEnd()
 
   getTitleElements().forEach(element => {
     boardElement.append(element);
   })
+
+  listMinesLeft()
 }
 
 function getTitleElements() {
@@ -38,22 +41,28 @@ function titleToElement(tile) {
   return element
 }
 
-board.forEach(row => {
-  row.forEach(tile => {
-    boardElement.append(tile.element)
-    tile.element.addEventListener('click', () => {
-      revealTile(board, tile)
-      chackGameEnd()
-    })
-    tile.element.addEventListener('contextmenu', e => {
-      e.preventDefault()
-      markTile(tile)
-      listMinesLeft()
-    })
-  })
+boardElement.addEventListener('click', e => {
+  if(e.target.matches('[data-status]')) return
+
+  revealTile(
+    board,
+    board[parseInt(e.target.dataset.x)][parseInt(e.target.dataset.y)]
+  )
+  render()
+})
+
+boardElement.addEventListener('contextmenu', e => {
+  if(e.target.matches('[data-status]')) return
+  e.preventDefault()
+  markTile(
+    board,
+    board[parseInt(e.target.dataset.x)][parseInt(e.target.dataset.y)]
+  )
+  render()
 })
 
 boardElement.style.setProperty("--size", BOARD_SIZE)
+render()
 minesLeftText.textContent = NUMBER_OF_MINES
 
 function listMinesLeft() {
