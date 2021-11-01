@@ -1,4 +1,11 @@
-import { createBoard, markTile, TILE_STATUSES, revealTile, checkWin, checkLose } from './minesweeper.js'
+import { 
+  createBoard, 
+  markTile, 
+  TILE_STATUSES, 
+  revealTile, 
+  checkWin, 
+  checkLose
+} from './minesweeper.js'
 
 const BOARD_SIZE = 10
 const NUMBER_OF_MINES = 10
@@ -7,6 +14,29 @@ const board = createBoard(BOARD_SIZE, NUMBER_OF_MINES)
 const boardElement = document.querySelector(".board")
 const minesLeftText = document.querySelector("[data-mine-couter]")
 const messageText = document.querySelector(".subtext")
+
+function render() {
+  boardElement.innerHTML = ''
+
+  getTitleElements().forEach(element => {
+    boardElement.append(element);
+  })
+}
+
+function getTitleElements() {
+  return board.flatMap(row => {
+    return row.map(titleToElement)
+  })
+}
+
+function titleToElement(tile) {
+  const element = document.createElement("div")
+  element.dataset.status = tile.status
+  element.dataset.x = tile.x
+  element.dataset.y = tile.y
+  element.textContent = tile.adjacentMinesCount || ''
+  return element
+}
 
 board.forEach(row => {
   row.forEach(tile => {
