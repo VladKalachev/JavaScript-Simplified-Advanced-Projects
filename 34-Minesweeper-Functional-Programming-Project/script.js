@@ -43,7 +43,6 @@ function titleToElement(tile) {
 
 boardElement.addEventListener('click', e => {
   if(e.target.matches('[data-status]')) return
-
   revealTile(
     board,
     board[parseInt(e.target.dataset.x)][parseInt(e.target.dataset.y)]

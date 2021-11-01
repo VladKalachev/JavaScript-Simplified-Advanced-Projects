@@ -13,21 +13,12 @@ export function createBoard(boradSize, numberOfMines) {
 
   for (let x = 0; x < boradSize; x++ ) {
     const row = []
-    for (let y = 0; y < boradSize; y++ ) { 
-      const element = document.createElement("div")
-      element.dataset.status = TILE_STATUSES.HIDDEN
-
+    for (let y = 0; y < boradSize; y++ ) {
       const tile = {
-        element,
         x,
         y,
         mine: minePositions.some(positionMatch.bind(null, { x, y })),
-        get status() {
-          return element.dataset.status
-        },
-        set status(value) {
-          this.element.dataset.status = value
-        },
+        status: TILE_STATUSES.HIDDEN,
       }
 
       row.push(tile)
@@ -37,16 +28,28 @@ export function createBoard(boradSize, numberOfMines) {
   return board
 }
 
-export function markTile(tile) {
+export function markTile(board, {x, y}) {
+  const tile = board[x][y]
   if(tile.status !== TILE_STATUSES.HIDDEN && tile.status !== TILE_STATUSES.MARKED) {
-    return 
+    return board
   }
 
   if (tile.status === TILE_STATUSES.MARKED) {
-    tile.status = TILE_STATUSES.HIDDEN
+    return replaceTile(board, { x, y }, { ...tile, status: TILE_STATUSES.HIDDEN })
   } else {
-    tile.status = TILE_STATUSES.MARKED
+    return replaceTile(board, { x, y }, { ...tile, status: TILE_STATUSES.MARKED })
   }
+}
+
+function replaceTile(board, position, newTile) {
+  return board.map((row, x) => {
+    return row.map((tile, y) => {
+      if(positionMatch(position, { x, y })) {
+        return newTile
+      }
+      return tile
+    })
+  })
 }
 
 export function revealTile(board, tile) {
