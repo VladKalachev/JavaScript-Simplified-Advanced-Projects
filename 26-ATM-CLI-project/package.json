@@ -8,7 +8,9 @@
     "jest": "^27.3.1"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "test:unit": "jest \\.unit\\. --coverage",
+    "test:int": "jest \\.int\\. --coverage"
   },
   "author": "",
   "license": "ISC"
