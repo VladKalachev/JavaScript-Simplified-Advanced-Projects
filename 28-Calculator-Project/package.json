@@ -1,0 +1,14 @@
+{
+  "name": "28-calculator-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Calculator.js",
+  "scripts": {
+    "cy:run": "cypress open"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^8.7.0"
+  }
+}
