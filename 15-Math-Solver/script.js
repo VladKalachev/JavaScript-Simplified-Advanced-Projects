@@ -3,6 +3,7 @@
 //   const result = solve(step)
 //   replaceNextStep(equation, step, result)
 // }
+
 import parse from './parse'
 
 const inputElement = document.getElementById('equation')

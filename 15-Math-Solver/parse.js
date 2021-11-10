@@ -25,7 +25,7 @@ export default function parse(equation) {
     return parseFloat(equation)
   }
 }
-  
+
 function handleMath({ operand1, operand2, operation }) {
   const number1= parseFloat(operand1)
   const number2 = parseFloat(operand2)
