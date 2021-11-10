@@ -1,0 +1,18 @@
+{
+  "name": "13-Minesweeper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "minesweeper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.0",
+    "cypress": "^8.7.0",
+    "jest": "^27.3.1",
+    "start-server-and-test": "^1.14.0"
+  }
+}
