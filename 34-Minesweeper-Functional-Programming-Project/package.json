@@ -5,7 +5,10 @@
   "main": "minesweeper.js",
   "scripts": {
     "build": "parcel build index.html",
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "test": "jest --coverage",
+    "cy:open": "cypress open",
+    "test:e2e": "start-server-and-test start http://localhost:1234 cy:open"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +18,9 @@
   "devDependencies": {
     "@babel/core": "^7.13.8",
     "@babel/plugin-proposal-optional-chaining": "^7.13.8",
+    "@babel/preset-env": "^7.16.0",
+    "cypress": "^9.0.0",
+    "jest": "^27.3.1",
     "parcel-bundler": "1.12.3"
   }
 }
