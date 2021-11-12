@@ -328,6 +328,12 @@ describe("#positionMatch", () => {
   test("it returns true then the x and y properties are the same", () => {
     const posA = { x: 1, y: 2 }
     const posB = { x: 1, y: 2 }
-    expect(positionMatch(posA, posB))
-  }) 
+    expect(positionMatch(posA, posB)).toBeTruthy()
+  })
+
+  test("it returns false then the x or y properties are not the same", () => {
+    const posA = { x: 1, y: 2 }
+    const posB = { x: 1, y: 1 }
+    expect(positionMatch(posA, posB)).toBeFalsy()
+  })
 })

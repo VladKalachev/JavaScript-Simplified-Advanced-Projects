@@ -45,7 +45,7 @@ FNDA:7,(anonymous_15)
 FNDA:2,checkLose
 FNDA:3,(anonymous_17)
 FNDA:5,(anonymous_18)
-FNDA:93,positionMatch
+FNDA:94,positionMatch
 FNDA:9,nearbyTiles
 FNDA:27,(anonymous_21)
 FNDA:81,(anonymous_22)
@@ -86,7 +86,7 @@ DA:95,7
 DA:106,2
 DA:107,3
 DA:108,5
-DA:114,93
+DA:114,94
 DA:118,9
 DA:120,9
 DA:122,27
@@ -112,8 +112,8 @@ BRDA:96,7,0,7
 BRDA:96,7,1,5
 BRDA:96,7,2,4
 BRDA:96,7,3,2
-BRDA:114,8,0,93
-BRDA:114,8,1,35
+BRDA:114,8,0,94
+BRDA:114,8,1,36
 BRF:20
 BRH:20
 end_of_record
