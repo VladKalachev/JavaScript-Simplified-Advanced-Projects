@@ -1378,9 +1378,19 @@ function nearbyTiles(board, _ref3) {
 
 var _minesweeper = require("./minesweeper.js");
 
-var BOARD_SIZE = 10;
-var NUMBER_OF_MINES = 10;
-var board = (0, _minesweeper.createBoard)(BOARD_SIZE, getMinePositions(BOARD_SIZE, NUMBER_OF_MINES));
+var _testBoard, _testBoard2;
+
+var testBoard;
+
+if ("development" !== 'production' && window.testBoard) {
+  testBoard = window.testBoard;
+}
+
+var BOARD_SIZE = ((_testBoard = testBoard) === null || _testBoard === void 0 ? void 0 : _testBoard.length) ?? 10;
+var NUMBER_OF_MINES = ((_testBoard2 = testBoard) === null || _testBoard2 === void 0 ? void 0 : _testBoard2.flat().filter(function (t) {
+  return t.mine;
+}).length) ?? 10;
+var board = testBoard ?? (0, _minesweeper.createBoard)(BOARD_SIZE, getMinePositions(BOARD_SIZE, NUMBER_OF_MINES));
 var boardElement = document.querySelector(".board");
 var minesLeftText = document.querySelector("[data-mine-count]");
 var messageText = document.querySelector(".subtext");
@@ -1513,7 +1523,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64617" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50209" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

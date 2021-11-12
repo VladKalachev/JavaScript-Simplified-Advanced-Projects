@@ -9,10 +9,15 @@ import {
   markedTilesCount,
 } from './minesweeper.js'
 
-const BOARD_SIZE = 10
-const NUMBER_OF_MINES = 10
+let testBoard
+if (process.env.NODE_ENV !== 'production' && window.testBoard) {
+  testBoard = window.testBoard
+}
 
-let board = createBoard(
+const BOARD_SIZE = testBoard?.length ?? 10
+const NUMBER_OF_MINES = testBoard?.flat().filter(t => t.mine).length ?? 10
+
+let board = testBoard ?? createBoard(
   BOARD_SIZE,
   getMinePositions(BOARD_SIZE, NUMBER_OF_MINES)
 )
