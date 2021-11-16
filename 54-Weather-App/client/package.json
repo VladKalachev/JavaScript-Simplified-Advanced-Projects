@@ -4,8 +4,15 @@
   "description": "",
   "main": "script.js",
   "scripts": {
+    "start": "parcel index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
 }
