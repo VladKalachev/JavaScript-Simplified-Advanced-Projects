@@ -16,6 +16,7 @@ app.get("/weather", (req, res) => {
         appid: process.env.API_KEY,
         units: "imperial",
         exclude: "minutely,alerts",
+        lang: "ru"
       },
     })
     .then(({ data }) => {
