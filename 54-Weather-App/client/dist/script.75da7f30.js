@@ -2232,14 +2232,29 @@ function positionError() {
 }
 
 function getWeather(lat, lon) {
+  // axios
+  //   .get("https://api.openweathermap.org/data/2.5/onecall", {
+  //     params: {
+  //       lat,
+  //       lon,
+  //       appid: "d002018a596facd0557b2639941f2c3c",
+  //       units: "imperial",
+  //       exclude: "minutely,alerts",
+  //     },
+  //   })
+  //   .catch(e => {
+  //     console.log(e)
+  //     alert("Error getting weather. Please try again.")
+  //   })
   _axios.default.get("http://localhost:3001/weather", {
     params: {
       lat: lat,
       lon: lon
     }
-  }).then(function (res) {
-    renderWeather(res.data);
-  }).catch(function (e) {
+  }) // .then(res => {
+  //   renderWeather(res.data)
+  // })
+  .catch(function (e) {
     console.log(e);
     alert("Error getting weather. Please try again.");
   });

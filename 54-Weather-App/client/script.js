@@ -11,13 +11,27 @@ function positionError() {
 }
 
 function getWeather(lat, lon) {
+  // axios
+  //   .get("https://api.openweathermap.org/data/2.5/onecall", {
+  //     params: {
+  //       lat,
+  //       lon,
+  //       appid: "d002018a596facd0557b2639941f2c3c",
+  //       units: "imperial",
+  //       exclude: "minutely,alerts",
+  //     },
+  //   })
+  //   .catch(e => {
+  //     console.log(e)
+  //     alert("Error getting weather. Please try again.")
+  //   })
   axios
     .get("http://localhost:3001/weather", {
       params: { lat, lon },
     })
-    .then(res => {
-      renderWeather(res.data)
-    })
+    // .then(res => {
+    //   renderWeather(res.data)
+    // })
     .catch(e => {
       console.log(e)
       alert("Error getting weather. Please try again.")
