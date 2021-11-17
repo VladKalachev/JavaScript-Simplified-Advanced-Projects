@@ -123,6 +123,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.clear = clear;
 exports.drawCircle = drawCircle;
 exports.drawSquare = drawSquare;
 exports.drawSquareOutline = drawSquareOutline;
@@ -159,6 +160,11 @@ function drawCircle(canvas, _ref3) {
   context.arc(x, y, size, 0, Math.PI * 2);
   context.fill();
 }
+
+function clear(canvas) {
+  var context = canvas.getContext('2d');
+  canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+}
 },{}],"script.js":[function(require,module,exports) {
 "use strict";
 
@@ -168,7 +174,6 @@ var canvas = document.createElement('canvas');
 canvas.height = window.innerHeight - 20;
 canvas.width = window.innerWidth - 20;
 document.body.append(canvas);
-var context = canvas.getContext('2d');
 (0, _draw.drawSquare)(canvas, {
   x: 50,
   y: 50,
@@ -190,7 +195,7 @@ var context = canvas.getContext('2d');
 });
 document.addEventListener('keypress', function (e) {
   if (e.key === 'c') {
-    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    (0, _draw.clear)(canvas);
   }
 });
 },{"./draw.js":"draw.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
