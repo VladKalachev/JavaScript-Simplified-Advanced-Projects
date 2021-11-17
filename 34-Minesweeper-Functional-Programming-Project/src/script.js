@@ -88,11 +88,12 @@ function checkGameEnd() {
     boardElement.addEventListener("contextmenu", stopProp, { capture: true })
   }
 
+  let text = ''
   if (win) {
-    messageText.textContent = "You Win"
+    text = "You Win"
   }
   if (lose) {
-    messageText.textContent = "You Lose"
+    text = "You Lose"
     board.forEach(row => {
       row.forEach(tile => {
         if (tile.status === TILE_STATUSES.MARKED) board = markTile(board, tile)
@@ -100,6 +101,7 @@ function checkGameEnd() {
       })
     })
   }
+  messageText.textContent = test
 }
 
 function stopProp(e) {
