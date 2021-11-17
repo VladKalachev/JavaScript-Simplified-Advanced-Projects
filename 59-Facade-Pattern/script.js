@@ -1,3 +1,5 @@
+import { drawSquare } from './draw.js'
+
 const canvas = document.createElement('canvas')
 canvas.height = window.innerHeight - 20
 canvas.width = window.innerWidth - 20
@@ -5,9 +7,7 @@ document.body.append(canvas)
 
 const context = canvas.getContext('2d')
 
-// Draw square
-context.fillStyle = "red"
-context.fillRect(50, 50, 200, 200)
+drawSquare(canvas, { color: 'red', x: 50, y: 50, size: 200 })
 
 // Draw square outline
 context.strokeStyle = "blue"
