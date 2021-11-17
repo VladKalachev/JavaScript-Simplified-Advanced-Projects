@@ -123,7 +123,9 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.drawCircle = drawCircle;
 exports.drawSquare = drawSquare;
+exports.drawSquareOutline = drawSquareOutline;
 
 function drawSquare(canvas, _ref) {
   var x = _ref.x,
@@ -133,6 +135,29 @@ function drawSquare(canvas, _ref) {
   var context = canvas.getContext('2d');
   context.fillStyle = color;
   context.fillRect(x, y, size, size);
+}
+
+function drawSquareOutline(canvas, _ref2) {
+  var x = _ref2.x,
+      y = _ref2.y,
+      size = _ref2.size,
+      color = _ref2.color,
+      lineWidth = _ref2.lineWidth;
+  var context = canvas.getContext('2d');
+  context.fillStyle = color;
+  context.lineWidth = lineWidth;
+  context.strokeRect(x, y, size, size);
+}
+
+function drawCircle(canvas, _ref3) {
+  var x = _ref3.x,
+      y = _ref3.y,
+      size = _ref3.size,
+      color = _ref3.color;
+  var context = canvas.getContext('2d');
+  context.fillStyle = color;
+  context.arc(x, y, size, 0, Math.PI * 2);
+  context.fill();
 }
 },{}],"script.js":[function(require,module,exports) {
 "use strict";
@@ -145,19 +170,24 @@ canvas.width = window.innerWidth - 20;
 document.body.append(canvas);
 var context = canvas.getContext('2d');
 (0, _draw.drawSquare)(canvas, {
-  color: 'red',
   x: 50,
   y: 50,
-  size: 200
-}); // Draw square outline
-
-context.strokeStyle = "blue";
-context.lineWidth = 20;
-context.strokeRect(300, 50, 200, 200); // Draw circle
-
-context.fillStyle = "green";
-context.arc(650, 150, 100, 0, Math.PI * 2);
-context.fill();
+  size: 200,
+  color: 'red'
+});
+(0, _draw.drawSquareOutline)(canvas, {
+  x: 300,
+  y: 50,
+  size: 200,
+  color: 'blue',
+  lineWidth: 20
+});
+(0, _draw.drawCircle)(canvas, {
+  x: 650,
+  y: 150,
+  size: 100,
+  color: 'green'
+});
 document.addEventListener('keypress', function (e) {
   if (e.key === 'c') {
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
