@@ -1,4 +1,4 @@
-import { createBoard, TILE_STATUSES, markedTilesCount, positionMatch, markTile, revealTile, checkWin, checkLose } from './minesweeper.js'
+import { createBoard, TILE_STATUSES, markedTilesCount, positionMatch, markTile, revealTile, checkWin, checkLose } from '../minesweeper.js'
 
 describe("#createBoard", () => {
   test("it creates a valid board", () => {

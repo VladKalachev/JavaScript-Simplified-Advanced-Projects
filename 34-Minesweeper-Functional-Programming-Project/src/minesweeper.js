@@ -53,17 +53,6 @@ export function markTile(board, { x, y }) {
   }
 }
 
-function replaceTile(board, position, newTile) {
-  return board.map((row, x) => {
-    return row.map((tile, y) => {
-      if (positionMatch(position, { x, y })) {
-        return newTile
-      }
-      return tile
-    })
-  })
-}
-
 export function revealTile(board, { x, y }) {
   const tile = board[x][y]
   if (tile.status !== TILE_STATUSES.HIDDEN) {
@@ -112,6 +101,17 @@ export function checkLose(board) {
 
 export function positionMatch(a, b) {
   return a.x === b.x && a.y === b.y
+}
+
+function replaceTile(board, position, newTile) {
+  return board.map((row, x) => {
+    return row.map((tile, y) => {
+      if (positionMatch(position, { x, y })) {
+        return newTile
+      }
+      return tile
+    })
+  })
 }
 
 function nearbyTiles(board, { x, y }) {
