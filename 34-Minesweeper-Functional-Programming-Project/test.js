@@ -14,14 +14,14 @@ function startTimer(timer) {
 function getImsuramceDeductible(insurance) {
   if (insurance.covered) {
       if(insurance.majorRepair) {
-          return 500
+        return 500
       } else if (insurance.mediumRepair) {
-          return 300
+        return 300
       } else {
-          return 100
+        return 100
       }
   } else {
-      return 0
+    return 0
   }
 }
 
