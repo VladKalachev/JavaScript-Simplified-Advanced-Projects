@@ -1,14 +1,14 @@
 export function randomNumber({ min = 0, max }) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
-  
+
 export function randomValueInRange(options) {
   const ranges = validRanges(options)
 
   const range = ranges[randomNumber({ max: ranges.length - 1 })]
   return randomNumber(range)
 }
-  
+
 function validRanges({
   startingValue,
   maxCutoff,

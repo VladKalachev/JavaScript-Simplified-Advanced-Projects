@@ -5,13 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
+  <script src="script.js" type="module"></script>
   <title>Color Game</title>
-  <script src="script.js" defer></script>
 </head>
 <body>
   <header class="header">
     <h2 class="title">Color Game</h2>
-    <h3 class="color-string">rgb(255, 0, 0)</h3>
+    <h3 class="color-string" data-color-string>rgb(255, 0, 0)</h3>
     <form class="form">
       <fieldset>
         <legend>Format</legend>
@@ -37,7 +37,7 @@
       </fieldset>
     </form>
   </header>
-  <div class="color-grid">
+  <div class="color-grid" data-color-grid>
     <button class="wrong" disabled style="background-color: blue;"></button>
     <button disabled style="background-color: red;"></button>
     <button class="wrong" disabled style="background-color: green;"></button>
@@ -45,9 +45,9 @@
     <button class="wrong" disabled style="background-color: purple;"></button>
     <button class="wrong" disabled style="background-color: grey;"></button>
   </div>
-  <div class="results">
-    <div>Correct</div>
-    <button>Next Color</button>
+  <div class="results" data-results>
+    <div data-results-text>Correct</div>
+    <button data-next-btn>Next Color</button>
   </div>
 </body>
 </html>

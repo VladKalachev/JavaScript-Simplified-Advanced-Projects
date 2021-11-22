@@ -1,3 +1,4 @@
+import { randomNumber, randomValueInRange } from "./utils.js"
 
 const MAX_RGB_VALUE = 255
 
@@ -9,18 +10,34 @@ export default class Rgb {
   }
 
   static generate() {
-    return new Rgb(
-      randomNumber(MAX_RGB_VALUE),
-      randomNumber(MAX_RGB_VALUE),
-      randomNumber(MAX_RGB_VALUE)
+    return new this(
+      randomNumber({ max: MAX_RGB_VALUE }),
+      randomNumber({ max: MAX_RGB_VALUE }),
+      randomNumber({ max: MAX_RGB_VALUE })
     )
   }
 
-  generateSimilar() {
-
+  generateSimilar(options) {
+    return new this.constructor(
+      randomValueInRange({
+        startingValue: this.r,
+        maxCutoff: MAX_RGB_VALUE,
+        ...options,
+      }),
+      randomValueInRange({
+        startingValue: this.g,
+        maxCutoff: MAX_RGB_VALUE,
+        ...options,
+      }),
+      randomValueInRange({
+        startingValue: this.b,
+        maxCutoff: MAX_RGB_VALUE,
+        ...options,
+      })
+    )
   }
-}
 
-function randomNumber(max) {
-  return Math.floor(Math.random() * (max + 1))
+  toCss() {
+    return `rgb(${this.r}, ${this.g}, ${this.b})`
+  }
 }

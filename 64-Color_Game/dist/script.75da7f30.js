@@ -117,13 +117,74 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"Rgb.js":[function(require,module,exports) {
+})({"utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.randomNumber = randomNumber;
+exports.randomValueInRange = randomValueInRange;
+
+function randomNumber(_ref) {
+  var _ref$min = _ref.min,
+      min = _ref$min === void 0 ? 0 : _ref$min,
+      max = _ref.max;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function randomValueInRange(options) {
+  var ranges = validRanges(options);
+  var range = ranges[randomNumber({
+    max: ranges.length - 1
+  })];
+  return randomNumber(range);
+}
+
+function validRanges(_ref2) {
+  var startingValue = _ref2.startingValue,
+      maxCutoff = _ref2.maxCutoff,
+      withinTolerance = _ref2.withinTolerance,
+      outsideTolerance = _ref2.outsideTolerance;
+  var withinToleranceIncrementor = Math.floor(withinTolerance * maxCutoff);
+  var outsideToleranceIncrementor = Math.ceil(outsideTolerance * maxCutoff);
+  var aboveRangeMin = startingValue + outsideToleranceIncrementor;
+  var aboveRangeMax = Math.min(startingValue + withinToleranceIncrementor, maxCutoff);
+  var belowRangeMin = Math.max(startingValue - withinToleranceIncrementor, 0);
+  var belowRangeMax = startingValue - outsideToleranceIncrementor;
+  var ranges = [];
+
+  if (aboveRangeMax > aboveRangeMin) {
+    ranges.push({
+      min: aboveRangeMin,
+      max: aboveRangeMax
+    });
+  }
+
+  if (belowRangeMax > belowRangeMin) {
+    ranges.push({
+      min: belowRangeMin,
+      max: belowRangeMax
+    });
+  }
+
+  return ranges;
+}
+},{}],"Rgb.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _utils = require("./utils.js");
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -144,11 +205,33 @@ var Rgb = /*#__PURE__*/function () {
 
   _createClass(Rgb, [{
     key: "generateSimilar",
-    value: function generateSimilar() {}
+    value: function generateSimilar(options) {
+      return new this.constructor((0, _utils.randomValueInRange)(_objectSpread({
+        startingValue: this.r,
+        maxCutoff: MAX_RGB_VALUE
+      }, options)), (0, _utils.randomValueInRange)(_objectSpread({
+        startingValue: this.g,
+        maxCutoff: MAX_RGB_VALUE
+      }, options)), (0, _utils.randomValueInRange)(_objectSpread({
+        startingValue: this.b,
+        maxCutoff: MAX_RGB_VALUE
+      }, options)));
+    }
+  }, {
+    key: "toCss",
+    value: function toCss() {
+      return "rgb(".concat(this.r, ", ").concat(this.g, ", ").concat(this.b, ")");
+    }
   }], [{
     key: "generate",
     value: function generate() {
-      return new Rgb(randomNumber(MAX_RGB_VALUE), randomNumber(MAX_RGB_VALUE), randomNumber(MAX_RGB_VALUE));
+      return new this((0, _utils.randomNumber)({
+        max: MAX_RGB_VALUE
+      }), (0, _utils.randomNumber)({
+        max: MAX_RGB_VALUE
+      }), (0, _utils.randomNumber)({
+        max: MAX_RGB_VALUE
+      }));
     }
   }]);
 
@@ -156,19 +239,258 @@ var Rgb = /*#__PURE__*/function () {
 }();
 
 exports.default = Rgb;
+},{"./utils.js":"utils.js"}],"Hex.js":[function(require,module,exports) {
+"use strict";
 
-function randomNumber(max) {
-  return Math.floor(Math.random() * (max + 1));
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Rgb2 = _interopRequireDefault(require("./Rgb.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var Hex = /*#__PURE__*/function (_Rgb) {
+  _inherits(Hex, _Rgb);
+
+  var _super = _createSuper(Hex);
+
+  function Hex() {
+    _classCallCheck(this, Hex);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(Hex, [{
+    key: "toCss",
+    value: function toCss() {
+      var rHex = decimalToHex(this.r);
+      var gHex = decimalToHex(this.g);
+      var bHex = decimalToHex(this.b);
+      return "#".concat(rHex).concat(gHex).concat(bHex);
+    }
+  }]);
+
+  return Hex;
+}(_Rgb2.default);
+
+exports.default = Hex;
+
+function decimalToHex(decimal) {
+  return decimal.toString(16);
 }
-},{}],"script.js":[function(require,module,exports) {
+},{"./Rgb.js":"Rgb.js"}],"Hsl.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _utils = require("./utils.js");
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var MAX_HUE_VALUE = 360;
+var MAX_SATURATION_VALUE = 100;
+var MAX_LIGHTNESS_VALUE = 100;
+
+var Hsl = /*#__PURE__*/function () {
+  function Hsl(h, s, l) {
+    _classCallCheck(this, Hsl);
+
+    this.h = h;
+    this.s = s;
+    this.l = l;
+  }
+
+  _createClass(Hsl, [{
+    key: "generateSimilar",
+    value: function generateSimilar(options) {
+      return new this.constructor((0, _utils.randomValueInRange)(_objectSpread({
+        startingValue: this.h,
+        maxCutoff: MAX_HUE_VALUE
+      }, options)), (0, _utils.randomValueInRange)(_objectSpread({
+        startingValue: this.s,
+        maxCutoff: MAX_SATURATION_VALUE
+      }, options)), (0, _utils.randomValueInRange)(_objectSpread({
+        startingValue: this.l,
+        maxCutoff: MAX_LIGHTNESS_VALUE
+      }, options)));
+    }
+  }, {
+    key: "toCss",
+    value: function toCss() {
+      return "hsl(".concat(this.h, ", ").concat(this.s, "%, ").concat(this.l, "%)");
+    }
+  }], [{
+    key: "generate",
+    value: function generate() {
+      return new this((0, _utils.randomNumber)({
+        max: MAX_HUE_VALUE
+      }), (0, _utils.randomNumber)({
+        max: MAX_SATURATION_VALUE
+      }), (0, _utils.randomNumber)({
+        max: MAX_LIGHTNESS_VALUE
+      }));
+    }
+  }]);
+
+  return Hsl;
+}();
+
+exports.default = Hsl;
+},{"./utils.js":"utils.js"}],"script.js":[function(require,module,exports) {
 "use strict";
 
 var _Rgb = _interopRequireDefault(require("./Rgb.js"));
 
+var _Hex = _interopRequireDefault(require("./Hex.js"));
+
+var _Hsl = _interopRequireDefault(require("./Hsl.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log(_Rgb.default.generate());
-},{"./Rgb.js":"Rgb.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var COLOR_MAP = {
+  rgb: _Rgb.default,
+  hex: _Hex.default,
+  hsl: _Hsl.default
+};
+var DIFFICULTY_MAP = {
+  easy: {
+    withinTolerance: 1,
+    outsideTolerance: 0.2
+  },
+  medium: {
+    withinTolerance: 0.5,
+    outsideTolerance: 0.2
+  },
+  hard: {
+    withinTolerance: 0.3,
+    outsideTolerance: 0.2
+  }
+};
+var nextButton = document.querySelector("[data-next-btn]");
+nextButton.addEventListener("click", render);
+document.addEventListener("change", function (e) {
+  if (e.target.matches('input[type="radio"]')) render();
+}); // Formatter
+// Difficulty - Config for the formatter
+// Render - every time page loads, on change of format, on change of difficulty
+// 1. Get a formatter
+// 2. Configure formatter based on difficulty
+// 3. Generate colors
+// 4. Render colors
+// 5. Handle clicking a color
+// Generate correct color
+// Generate similar colors based on difficulty
+
+var colorGrid = document.querySelector("[data-color-grid]");
+var colorStringElement = document.querySelector("[data-color-string]");
+var resultsElement = document.querySelector("[data-results]");
+var resultsText = document.querySelector("[data-results-text]");
+
+function render() {
+  var format = document.querySelector('[name="format"]:checked').value;
+  var difficulty = document.querySelector('[name="difficulty"]:checked').value;
+
+  var _generateColors = generateColors({
+    format: format,
+    difficulty: difficulty
+  }),
+      colors = _generateColors.colors,
+      correctColor = _generateColors.correctColor;
+
+  colorGrid.innerHTML = "";
+  colorStringElement.textContent = correctColor.toCss();
+  resultsElement.classList.add("hide");
+  var colorElements = colors.sort(function () {
+    return Math.random() - 0.5;
+  }).map(function (color) {
+    var element = document.createElement("button");
+    element.style.backgroundColor = color.toCss();
+    return {
+      color: color,
+      element: element
+    };
+  });
+  colorElements.forEach(function (_ref) {
+    var color = _ref.color,
+        element = _ref.element;
+    element.addEventListener("click", function () {
+      resultsElement.classList.remove("hide");
+      resultsText.textContent = color === correctColor ? "Correct" : "Wrong";
+      colorElements.forEach(function (_ref2) {
+        var c = _ref2.color,
+            e = _ref2.element;
+        e.disabled = true;
+        e.classList.toggle("wrong", c !== correctColor);
+      });
+    });
+    colorGrid.append(element);
+  });
+}
+
+render();
+
+function generateColors(_ref3) {
+  var format = _ref3.format,
+      difficulty = _ref3.difficulty;
+  var colorClass = COLOR_MAP[format];
+  var difficultyRules = DIFFICULTY_MAP[difficulty];
+  var correctColor = colorClass.generate();
+  var colors = [correctColor];
+
+  for (var i = 0; i < 5; i++) {
+    colors.push(correctColor.generateSimilar(difficultyRules));
+  }
+
+  return {
+    colors: colors,
+    correctColor: correctColor
+  };
+}
+
+var rgb = _Rgb.default.generate();
+
+console.log(rgb, rgb.generateSimilar({
+  withinTolerance: 0.3,
+  outsideTolerance: 0.2
+}));
+},{"./Rgb.js":"Rgb.js","./Hex.js":"Hex.js","./Hsl.js":"Hsl.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
